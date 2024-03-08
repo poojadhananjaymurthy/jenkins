@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                // Your build steps here
+                // For example: sh 'mvn clean install'
+            }
+        }
+    }
+
+    post {
+        success {
+            script {
+                // Send email notification on success
+                emailext (
+                    to: 'poojad30ask@gmail.com',
+                    subject: 'Pipeline Successful',
+                    body: 'Your Jenkins pipeline has completed successfully.',
+                    attachLog: true
+                )
+            }
+        }
+    }
+}
